@@ -6,7 +6,7 @@ O **SAFEZONE** é um sistema de segurança baseado em IoT projetado para preveni
 
 ## Descrição do Problema
 
-Em ambientes fabris, a interação humana com máquinas pesadas oferece riscos constantes. Sistemas de segurança tradicionais muitas vezes são passivos de erros, como esqquecer de deligar o maquinário ao fazer uma manutenção. O SAFEZONE resolve isso através de:
+Em ambientes fabris, a interação humana com máquinas pesadas oferece riscos constantes. Sistemas de segurança tradicionais muitas vezes são passivos de erros, como esquecer de desligar o maquinário ao fazer uma manutenção. O SAFEZONE resolve isso através de:
 1.  **Monitoramento Ativo:** Detecção de presença e distância em tempo real.
 2.  **Intervenção Automática:** Bloqueio imediato ao detectar invasão na área de risco.
 3.  **Transparência de Dados:** Dashboard em tempo real para supervisores acompanharem o status de segurança via MQTT.
@@ -36,5 +36,16 @@ Conecte os componentes seguindo os pinos definidos no código:
 
 <img width="761" height="516" alt="image" src="https://github.com/user-attachments/assets/0a1805cd-e5f5-481b-a2c3-d2a4f8f56449" />
 
+## Proximos passo
 
+### 1. Dashboard de Monitoramento em Tempo Real
+Desenvolvimento de uma interface web para supervisão do sistema, permitindo:
 
+- Visualização do status das máquinas em tempo real;
+- Exibição de alarmes e eventos de invasão de área crítica;
+- Monitoramento da distância detectada pelos sensores;
+- Histórico de ocorrências e estatísticas de segurança;
+- Botões de controle.
+
+### 2. Integração Completa via MQTT
+Implementação da comunicação MQTT para transmissão de dados entre o ESP32 e o dashboard
