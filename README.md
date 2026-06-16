@@ -34,7 +34,7 @@ Conecte os componentes seguindo os pinos definidos no código:
 *   **Relé:** Pino 2
 *   **Botões:** Stop (23), Reset (22)
 
-<img width="761" height="516" alt="image" src="https://github.com/user-attachments/assets/0a1805cd-e5f5-481b-a2c3-d2a4f8f56449" />
+<img width="805" height="524" alt="image" src="https://github.com/user-attachments/assets/09f1500b-6afe-496f-ba0b-c102ce0507e3" />
 
 ## Proximos passo
 
