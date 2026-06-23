@@ -23,6 +23,7 @@ Em ambientes fabris, a interação humana com máquinas pesadas oferece riscos c
 | Módulo Relé             | 1          | Acionamento de cargas externas      |
 | LED RGB                 | 1          | Indicação visual de estados         |
 | Buzzer                  | 1          | Alarme sonoro                       |
+| Motor                   | 1          | Simula a máquina                    |
 | Botões                  | 2          | Parada e reinicialização do sistema |
 
 ### 1. Configuração do Hardware
