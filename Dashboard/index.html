@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFEZONE</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+    <h1>SAFEZONE</h1>
+    <p>Monitoramento Inteligente de Segurança Industrial</p>
+</header>
+
+<div class="container">
+
+    <div class="grid">
+
+        <div class="card status" id="card-status">
+            <h3>STATUS DO SISTEMA</h3>
+            <div class="valor" id="status-valor">...</div>
+        </div>
+
+        <div class="card">
+            <h3>DISTÂNCIA</h3>
+            <div class="valor" id="distancia-valor">-- cm</div>
+        </div>
+
+        <div class="card">
+            <h3>MOVIMENTO</h3>
+            <div class="valor" id="movimento-valor">--</div>
+        </div>
+
+        <div class="card">
+            <h3>MÁQUINA</h3>
+            <div class="valor" id="maquina-valor">--</div>
+        </div>
+
+    </div>
+
+    <div class="botoes">
+
+        <button class="btn-reset" onclick="publicarComando('reset')">
+            RESETAR SISTEMA
+        </button>
+
+        <button class="btn-stop" onclick="publicarComando('stop')">
+            PARADA DE EMERGÊNCIA
+        </button>
+    </div>
+
+    <div class="eventos">
+
+        <h2>Histórico de Eventos</h2>
+
+        <div class="log" id="log-eventos">
+            <div class="log-item">Aguardando conexão...</div>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    SAFEZONE © 2026
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+<script>
+    // Configurações do HiveMQ (Placeholders)
+    const MQTT_CONFIG = {
+        host: "broker.hivemq.com", // Altere para seu broker
+        port: 8000,                // Porta WebSocket (geralmente 8000 ou 8884 para SSL)
+        clientId: "safezone_dash_" + Math.random().toString(16).substr(2, 8),
+        user: "",                  // Se necessário
+        pass: ""                   // Se necessário
+    };
+
+    let client = new Paho.MQTT.Client(MQTT_CONFIG.host, MQTT_CONFIG.port, MQTT_CONFIG.clientId);
+
+    client.onConnectionLost = onConnectionLost;
+    client.onMessageArrived = onMessageArrived;
+
+    const connectOptions = {
+        onSuccess: onConnect,
+        onFailure: onFailure,
+        useSSL: false, // Mude para true se usar porta 8884
+        userName: MQTT_CONFIG.user,
+        password: MQTT_CONFIG.pass
+    };
+
+    client.connect(connectOptions);
+
+    function onConnect() {
+        console.log("Conectado ao MQTT");
+        adicionarLog("Conectado ao Servidor");
+        
+        // Assinar tópicos
+        client.subscribe("safezone/status");
+        client.subscribe("safezone/distancia");
+        client.subscribe("safezone/movimento");
+        client.subscribe("safezone/evento");
+    }
+
+    function onFailure(message) {
+        console.log("Falha na conexão: " + message.errorMessage);
+        adicionarLog("Erro de conexão: " + message.errorMessage);
+    }
+
+    function onConnectionLost(responseObject) {
+        if (responseObject.errorCode !== 0) {
+            console.log("Conexão perdida: " + responseObject.errorMessage);
+            adicionarLog("Conexão perdida. Tentando reconectar...");
+            setTimeout(() => client.connect(connectOptions), 5000);
+        }
+    }
+
+    function onMessageArrived(message) {
+        const topic = message.destinationName;
+        const payload = message.payloadString;
+
+        console.log(`Mensagem recebida: [${topic}] ${payload}`);
+
+        switch(topic) {
+            case "safezone/status":
+                atualizarStatus(payload);
+                break;
+            case "safezone/distancia":
+                document.getElementById("distancia-valor").innerText = payload + " cm";
+                break;
+            case "safezone/movimento":
+                document.getElementById("movimento-valor").innerText = payload;
+                break;
+            case "safezone/evento":
+                adicionarLog(payload);
+                break;
+        }
+    }
+
+    function atualizarStatus(status) {
+        const statusValor = document.getElementById("status-valor");
+        const cardStatus = document.getElementById("card-status");
+        const maquinaValor = document.getElementById("maquina-valor");
+
+        statusValor.innerText = status;
+
+        // Estilização dinâmica baseada no status
+        if (status === "SEGURO") {
+            cardStatus.style.background = "#14532d";
+            cardStatus.style.color = "#4ade80";
+            maquinaValor.innerText = "OPERANDO";
+        } else if (status === "ALERTA") {
+            cardStatus.style.background = "#854d0e";
+            cardStatus.style.color = "#fde047";
+        } else if (status === "PERIGO" || status === "PARADO") {
+            cardStatus.style.background = "#7f1d1d";
+            cardStatus.style.color = "#fca5a5";
+            maquinaValor.innerText = "BLOQUEADA";
+        }
+    }
+
+    function adicionarLog(msg) {
+        const log = document.getElementById("log-eventos");
+        const tempo = new Date().toLocaleTimeString();
+        const item = document.createElement("div");
+        item.className = "log-item";
+        item.innerText = `${tempo} - ${msg}`;
+        log.prepend(item);
+    }
+
+    function publicarComando(comando) {
+        const message = new Paho.MQTT.Message(comando);
+        message.destinationName = "safezone/comando";
+        client.send(message);
+        console.log("Comando enviado: " + comando);
+    }
+</script>
+
+</body>
+</html>
