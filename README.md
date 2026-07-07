@@ -48,10 +48,11 @@ O SAFEZONE possui um dashboard web desenvolvido para permitir o monitoramento re
 - Indicação do nível de risco do sistema;
 - Visualização do estado da máquina (Operando ou Bloqueada);
 - Registro das mensagens recebidas via MQTT;
-- Botão para redefinição (Reset) do sistema.
+- Botão para redefinição (Reset) do sistema e parada (Stop) do sistema.
 
 ### Interface
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/224d8c01-f0ad-491b-ba82-aab7315610e6" />
 
 
 ---
@@ -61,3 +62,4 @@ O SAFEZONE possui um dashboard web desenvolvido para permitir o monitoramento re
 O vídeo abaixo apresenta o funcionamento completo do SAFEZONE, demonstrando a integração entre o ESP32, sensores, relé, sistema de bloqueio da máquina e dashboard web utilizando MQTT.
 
 ### Vídeo de Demonstração
+
