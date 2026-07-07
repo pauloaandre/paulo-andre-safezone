@@ -37,16 +37,27 @@ Conecte os componentes seguindo os pinos definidos no código:
 
 <img width="805" height="524" alt="image" src="https://github.com/user-attachments/assets/09f1500b-6afe-496f-ba0b-c102ce0507e3" />
 
-## Proximos passo
+## Dashboard de Monitoramento
 
-### 1. Dashboard de Monitoramento em Tempo Real
-Desenvolvimento de uma interface web para supervisão do sistema, permitindo:
+O SAFEZONE possui um dashboard web desenvolvido para permitir o monitoramento remoto do sistema em tempo real por meio do protocolo MQTT. A interface recebe os dados enviados pelo ESP32 e apresenta informações sobre o estado do ambiente industrial, permitindo que supervisores acompanhem rapidamente possíveis situações de risco.
 
-- Visualização do status das máquinas em tempo real;
-- Exibição de alarmes e eventos de invasão de área crítica;
-- Monitoramento da distância detectada pelos sensores;
-- Histórico de ocorrências e estatísticas de segurança;
-- Botões de controle.
+### Funcionalidades
 
-### 2. Integração Completa via MQTT
-Implementação da comunicação MQTT para transmissão de dados entre o ESP32 e o dashboard
+- Monitoramento em tempo real da distância medida pelo sensor ultrassônico;
+- Exibição do status do sensor PIR (presença detectada ou não);
+- Indicação do nível de risco do sistema;
+- Visualização do estado da máquina (Operando ou Bloqueada);
+- Registro das mensagens recebidas via MQTT;
+- Botão para redefinição (Reset) do sistema.
+
+### Interface
+
+
+
+---
+
+## Demonstração do Projeto
+
+O vídeo abaixo apresenta o funcionamento completo do SAFEZONE, demonstrando a integração entre o ESP32, sensores, relé, sistema de bloqueio da máquina e dashboard web utilizando MQTT.
+
+### Vídeo de Demonstração
