@@ -63,3 +63,7 @@ O vídeo abaixo apresenta o funcionamento completo do SAFEZONE, demonstrando a i
 
 ### Vídeo de Demonstração
 
+https://github.com/user-attachments/assets/7533a61b-9741-426b-97d0-32e5e13880fe
+
+
+
